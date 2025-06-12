@@ -5,9 +5,9 @@ const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 // Importar configuración de base de datos y rutas
-const agenteConexion = require('./config/database');
-const serviciosRoutes = require('./routes/servicios');
-const contactosRoutes = require('./routes/contactos');
+const agenteConexion = require('./config/database.js');
+const serviciosRoutes = require('./routes/servicios.js');
+const contactosRoutes = require('./routes/contactos.js');
 
 /**
  * Servidor Principal - Web Semántica para Empresa de Servicios
@@ -36,20 +36,10 @@ app.use(helmet({
 }));
 
 // CORS - Configuración para desarrollo y producción
-const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.FRONTEND_URL || false
-    : ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5500'],
-  credentials: true,
-  optionsSuccessStatus: 200,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-};
 app.use(cors({
   origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
   credentials: true
 }));
-app.use(cors(corsOptions));
 
 // Rate limiting - Protección contra ataques DDoS
 const limiteGeneral = rateLimit({
@@ -294,15 +284,15 @@ async function inicializarDatosEjemplo() {
           duracionEstimada: '4-6 semanas',
           keywords: ['desarrollo', 'web', 'personalizado', 'responsive', 'moderno']
         },
-        {
-          titulo: 'Consultoría en Transformación Digital',
-          descripcion: 'Te ayudamos a digitalizar tu empresa mediante estrategias personalizadas. Analizamos tus procesos actuales y diseñamos un plan de transformación digital que optimice tu operación y mejore tu competitividad.',
-          descripcionCorta: 'Estrategias personalizadas para digitalizar tu empresa.',
-          costo: 800000,
-          categoria: 'consultoría',
-          duracionEstimada: '2-3 semanas',
-          keywords: ['consultoría', 'digital', 'transformación', 'estrategia', 'optimización']
-        }
+          {
+            titulo: 'Consultoría en Transformación Digital',
+            descripcion: 'Te ayudamos a digitalizar tu empresa mediante estrategias personalizadas. Analizamos tus procesos actuales y diseñamos un plan de transformación digital que optimice tu operación y mejore tu competitividad.',
+            descripcionCorta: 'Estrategias personalizadas para digitalizar tu empresa.',
+            costo: 800000,
+            categoria: 'consultoría',
+            duracionEstimada: '2-3 semanas',
+            keywords: ['consultoría', 'digital', 'transformación', 'estrategia', 'optimización']
+          }
       ];
       
       await Servicio.insertMany(serviciosEjemplo);
