@@ -38,95 +38,6 @@ router.get('/', async (req, res) => {
     
     const respuesta = {
       exito: true,
-      mensaje: 'Estadísticas generadas exitosamente',
-      datos: {
-        resumen: {
-          totalServicios: totalServicios,
-          totalCategorias: totalCategorias.length,
-          categorias: totalCategorias
-        },
-        estadisticasPorCategoria: estadisticas
-      },
-      agente: 'AgenteServicio',
-      timestamp: new Date().toISOString()
-    };
-    
-    console.log('✅ AgenteServicio: Estadísticas generadas exitosamente');
-    res.json(respuesta);
-    
-  } catch (error) {
-    console.error('❌ AgenteServicio: Error al generar estadísticas:', error);
-    res.status(500).json({
-      exito: false,
-      mensaje: 'Error interno del servidor al generar estadísticas',
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno',
-      agente: 'AgenteServicio',
-      timestamp: new Date().toISOString()
-    });
-  }
-});
-
-// ✅ POST /api/servicios - Crear nuevo servicio (para administración)
-router.post('/', async (req, res) => {
-  try {
-    console.log('🤖 AgenteServicio: Procesando creación de nuevo servicio');
-    
-    const nuevoServicio = new Servicio(req.body);
-    await nuevoServicio.save();
-    
-    const respuesta = {
-      exito: true,
-      mensaje: 'Servicio creado exitosamente',
-      datos: {
-        servicio: nuevoServicio.toObject()
-      },
-      agente: 'AgenteServicio',
-      timestamp: new Date().toISOString()
-    };
-    
-    console.log(`✅ AgenteServicio: Servicio creado - ${nuevoServicio.titulo}`);
-    res.status(201).json(respuesta);
-    
-  } catch (error) {
-    console.error('❌ AgenteServicio: Error al crear servicio:', error);
-    
-    // Error de validación
-    if (error.name === 'ValidationError') {
-      const errores = Object.values(error.errors).map(err => ({
-        campo: err.path,
-        mensaje: err.message
-      }));
-      
-      return res.status(400).json({
-        exito: false,
-        mensaje: 'Error de validación en los datos del servicio',
-        errores: errores,
-        agente: 'AgenteServicio',
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    // Error de duplicado (slug único)
-    if (error.code === 11000) {
-      return res.status(409).json({
-        exito: false,
-        mensaje: 'Ya existe un servicio con ese título',
-        agente: 'AgenteServicio',
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    res.status(500).json({
-      exito: false,
-      mensaje: 'Error interno del servidor al crear servicio',
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno',
-      agente: 'AgenteServicio',
-      timestamp: new Date().toISOString()
-    });
-  }
-});
-
-module.exports = router;
       mensaje: 'Servicios obtenidos exitosamente',
       datos: {
         servicios: servicios.map(servicio => servicio.obtenerResumen()),
@@ -306,3 +217,92 @@ router.get('/estadisticas/resumen', async (req, res) => {
     
     const respuesta = {
       exito: true,
+      mensaje: 'Estadísticas generadas exitosamente',
+      datos: {
+        resumen: {
+          totalServicios: totalServicios,
+          totalCategorias: totalCategorias.length,
+          categorias: totalCategorias
+        },
+        estadisticasPorCategoria: estadisticas
+      },
+      agente: 'AgenteServicio',
+      timestamp: new Date().toISOString()
+    };
+    
+    console.log('✅ AgenteServicio: Estadísticas generadas exitosamente');
+    res.json(respuesta);
+    
+  } catch (error) {
+    console.error('❌ AgenteServicio: Error al generar estadísticas:', error);
+    res.status(500).json({
+      exito: false,
+      mensaje: 'Error interno del servidor al generar estadísticas',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno',
+      agente: 'AgenteServicio',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// ✅ POST /api/servicios - Crear nuevo servicio (para administración)
+router.post('/', async (req, res) => {
+  try {
+    console.log('🤖 AgenteServicio: Procesando creación de nuevo servicio');
+    
+    const nuevoServicio = new Servicio(req.body);
+    await nuevoServicio.save();
+    
+    const respuesta = {
+      exito: true,
+      mensaje: 'Servicio creado exitosamente',
+      datos: {
+        servicio: nuevoServicio.toObject()
+      },
+      agente: 'AgenteServicio',
+      timestamp: new Date().toISOString()
+    };
+    
+    console.log(`✅ AgenteServicio: Servicio creado - ${nuevoServicio.titulo}`);
+    res.status(201).json(respuesta);
+    
+  } catch (error) {
+    console.error('❌ AgenteServicio: Error al crear servicio:', error);
+    
+    // Error de validación
+    if (error.name === 'ValidationError') {
+      const errores = Object.values(error.errors).map(err => ({
+        campo: err.path,
+        mensaje: err.message
+      }));
+      
+      return res.status(400).json({
+        exito: false,
+        mensaje: 'Error de validación en los datos del servicio',
+        errores: errores,
+        agente: 'AgenteServicio',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    // Error de duplicado (slug único)
+    if (error.code === 11000) {
+      return res.status(409).json({
+        exito: false,
+        mensaje: 'Ya existe un servicio con ese título',
+        agente: 'AgenteServicio',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    res.status(500).json({
+      exito: false,
+      mensaje: 'Error interno del servidor al crear servicio',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno',
+      agente: 'AgenteServicio',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+module.exports = router;
