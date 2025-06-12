@@ -198,8 +198,12 @@ async function handleContactSubmit(e) {
         nombre: formData.get('nombre'),
         email: formData.get('email'),
         mensaje: formData.get('mensaje'),
-        fecha: new Date().toISOString(),
-        agente: 'AgenteContacto'
+  telefono: "+573001112233",
+  asunto: "Consulta sobre servicios",
+  tipoConsulta: "informacion",
+  servicioInteres: "666f6f626172313233343536",  // ObjectId válido de un Servicio
+  ipOrigen: "192.168.1.100",
+  userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     };
     
     // Mostrar estado de envío
