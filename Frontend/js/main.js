@@ -182,6 +182,7 @@ function initContactForm() {
 }
 
 async function handleContactSubmit(e) {
+    
     e.preventDefault();
     
     const form = e.target;
