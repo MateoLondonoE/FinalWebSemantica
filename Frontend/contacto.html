@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - ServiTech</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>ServiTech</h1>
+                    <span class="tagline">Soluciones Inteligentes</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+                    <li><a href="contacto.html" class="nav-link active">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Contacto</h1>
+                <p class="page-subtitle">Nuestro AgenteContacto procesará tu mensaje</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2>¿Cómo podemos ayudarte?</h2>
+                        <p>
+                            Utiliza nuestro formulario de contacto y nuestro <strong>AgenteContacto</strong> 
+                            procesará tu mensaje de manera eficiente, guardando toda la información en nuestra 
+                            base de datos MongoDB.
+                        </p>
+
+                        <div class="contact-features">
+                            <div class="contact-feature">
+                                <div class="feature-icon">🤖</div>
+                                <div class="feature-text">
+                                    <h3>AgenteContacto</h3>
+                                    <p>Procesamiento automático de mensajes</p>
+                                </div>
+                            </div>
+                            <div class="contact-feature">
+                                <div class="feature-icon">📊</div>
+                                <div class="feature-text">
+                                    <h3>Almacenamiento Seguro</h3>
+                                    <p>Datos guardados en MongoDB</p>
+                                </div>
+                            </div>
+                            <div class="contact-feature">
+                                <div class="feature-icon">⚡</div>
+                                <div class="feature-text">
+                                    <h3>Respuesta Rápida</h3>
+                                    <p>Confirmación inmediata</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-details">
+                            <h3>Información de Contacto</h3>
+                            <div class="contact-item">
+                                <strong>Email:</strong> info@servitech.com
+                            </div>
+                            <div class="contact-item">
+                                <strong>Teléfono:</strong> +57 (4) 123-4567
+                            </div>
+                            <div class="contact-item">
+                                <strong>Ubicación:</strong> Medellín, Colombia
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <form id="contactForm" class="contact-form">
+                            <h2>Envíanos un Mensaje</h2>
+                            
+                            <div class="form-group">
+                                <label for="nombre">Nombre Completo *</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                                <span class="form-error" id="nombreError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico *</label>
+                                <input type="email" id="email" name="email" required>
+                                <span class="form-error" id="emailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mensaje">Mensaje *</label>
+                                <textarea id="mensaje" name="mensaje" rows="6" required placeholder="Describe tu proyecto o consulta..."></textarea>
+                                <span class="form-error" id="mensajeError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                                    <span id="submitText">Enviar Mensaje</span>
+                                    <span id="submitLoading" style="display: none;">Enviando...</span>
+                                </button>
+                            </div>
+
+                            <div class="form-messages">
+                                <div class="success-message" id="successMessage" style="display: none;">
+                                    <h3>✅ ¡Mensaje Enviado!</h3>
+                                    <p>Tu mensaje ha sido procesado por nuestro AgenteContacto y guardado en la base de datos. Te contactaremos pronto.</p>
+                                </div>
+                                
+                                <div class="error-message" id="errorMessage" style="display: none;">
+                                    <h3>⚠️ Error al enviar</h3>
+                                    <p id="errorText">Hubo un problema al procesar tu mensaje. Por favor, intenta nuevamente.</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="agent-process">
+            <div class="container">
+                <h2>🔄 Proceso del AgenteContacto</h2>
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Recepción</h3>
+                        <p>El formulario envía datos al AgenteContacto</p>
+                    </div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Validación</h3>
+                        <p>Verificación de datos y formato</p>
+                    </div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Almacenamiento</h3>
+                        <p>Guardado en colección MongoDB</p>
+                    </div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Confirmación</h3>
+                        <p>Respuesta al cliente</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ServiTech. Proyecto Web Semántica - Arquitectura Cliente-Servidor</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initContactForm();
+        });
+    </script>
+</body>
+</html>
