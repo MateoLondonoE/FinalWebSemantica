@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Servicio - ServiTech</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>ServiTech</h1>
+                    <span class="tagline">Soluciones Inteligentes</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+                    <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="service-detail">
+            <div class="container">
+                <div class="back-link">
+                    <a href="servicios.html" class="btn btn-ghost">← Volver a Servicios</a>
+                </div>
+                
+                <div class="service-detail-content" id="serviceDetailContent">
+                    <div class="loading-message" id="detailLoading">
+                        <div class="spinner"></div>
+                        <p>Cargando detalles del servicio...</p>
+                    </div>
+                </div>
+
+                <!-- Contenido por defecto si no se puede cargar desde API -->
+                <div class="default-service-detail" id="defaultServiceDetail" style="display: none;">
+                    <div class="service-hero">
+                        <h1 id="serviceTitle">Desarrollo Web Avanzado</h1>
+                        <p class="service-subtitle">Creación de aplicaciones web con arquitectura Cliente-Servidor</p>
+                        <div class="service-price-badge">
+                            <span class="price" id="servicePrice">$1,200</span>
+                        </div>
+                    </div>
+
+                    <div class="service-detail-grid">
+                        <div class="service-main-info">
+                            <div class="service-description">
+                                <h2>Descripción Completa</h2>
+                                <p id="serviceDescription">
+                                    Nuestro servicio de desarrollo web combina las mejores prácticas de la arquitectura Cliente-Servidor 
+                                    con conceptos avanzados de web semántica. Implementamos un sistema basado en agentes conceptuales 
+                                    que garantiza la modularidad y escalabilidad de tu aplicación.
+                                </p>
+                                <p>
+                                    Utilizamos tecnologías modernas como Node.js para el backend, MongoDB como base de datos NoSQL, 
+                                    y aplicamos principios de teoría del color para crear interfaces atractivas y funcionales.
+                                </p>
+                            </div>
+
+                            <div class="service-features-detailed">
+                                <h2>Características Incluidas</h2>
+                                <div class="features-list">
+                                    <div class="feature-item">
+                                        <div class="feature-icon">🏗️</div>
+                                        <div class="feature-content">
+                                            <h3>Arquitectura Cliente-Servidor</h3>
+                                            <p>Separación clara entre frontend y backend para máxima eficiencia</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-icon">🤖</div>
+                                        <div class="feature-content">
+                                            <h3>Modelado de Agentes</h3>
+                                            <p>AgenteServicio y AgenteContacto para gestión conceptual</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-icon">📊</div>
+                                        <div class="feature-content">
+                                            <h3>Base de Datos MongoDB</h3>
+                                            <p>Almacenamiento flexible y escalable</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-icon">🎨</div>
+                                        <div class="feature-content">
+                                            <h3>Teoría del Color</h3>
+                                            <p>Diseño visual coherente y profesional</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-process">
+                                <h2>Proceso de Desarrollo</h2>
+                                <div class="process-steps">
+                                    <div class="step">
+                                        <div class="step-number">1</div>
+                                        <div class="step-content">
+                                            <h3>Análisis y Diseño</h3>
+                                            <p>Definición de ontología conceptual y arquitectura</p>
+                                        </div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <div class="step-content">
+                                            <h3>Implementación Frontend</h3>
+                                            <p>Desarrollo de interfaz con teoría del color</p>
+                                        </div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <div class="step-content">
+                                            <h3>Desarrollo Backend</h3>
+                                            <p>API REST con agentes conceptuales</p>
+                                        </div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <div class="step-content">
+                                            <h3>Integración y Pruebas</h3>
+                                            <p>Conexión completa y documentación</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="service-sidebar">
+                            <div class="service-card-action">
+                                <h3>¿Interesado en este servicio?</h3>
+                                <p>Contacta con nuestro AgenteContacto para más información</p>
+                                <a href="contacto.html" class="btn btn-primary btn-full">Solicitar Información</a>
+                            </div>
+
+                            <div class="service-specs">
+                                <h3>Especificaciones Técnicas</h3>
+                                <div class="spec-list">
+                                    <div class="spec-item">
+                                        <span class="spec-label">Tiempo Estimado:</span>
+                                        <span class="spec-value">8 días</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Frontend:</span>
+                                        <span class="spec-value">HTML5, CSS3, JavaScript</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Backend:</span>
+                                        <span class="spec-value">Node.js + Express</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Base de Datos:</span>
+                                        <span class="spec-value">MongoDB</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Arquitectura:</span>
+                                        <span class="spec-value">Cliente-Servidor</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ServiTech. Proyecto Web Semántica - Arquitectura Cliente-Servidor</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServiceDetail();
+        });
+    </script>
+</body>
+</html>

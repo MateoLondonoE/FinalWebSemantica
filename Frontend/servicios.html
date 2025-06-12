@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - ServiTech</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>ServiTech</h1>
+                    <span class="tagline">Soluciones Inteligentes</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="servicios.html" class="nav-link active">Servicios</a></li>
+                    <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Nuestros Servicios</h1>
+                <p class="page-subtitle">Gestionados por nuestro AgenteServicio especializado</p>
+            </div>
+        </section>
+
+        <section class="services-section">
+            <div class="container">
+                <div class="loading-message" id="loadingMessage">
+                    <div class="spinner"></div>
+                    <p>Cargando servicios...</p>
+                </div>
+                
+                <div class="services-grid" id="servicesGrid" style="display: none;">
+                    <!-- Los servicios se cargan dinámicamente -->
+                </div>
+
+                <div class="error-message" id="errorMessage" style="display: none;">
+                    <h3>⚠️ Error al cargar servicios</h3>
+                    <p>Mostrando servicios de ejemplo:</p>
+                    
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h3>Desarrollo Web</h3>
+                                <span class="service-price">$1,200</span>
+                            </div>
+                            <p class="service-description">Creación de aplicaciones web modernas con arquitectura Cliente-Servidor</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Frontend Responsivo</span>
+                                <span class="feature-tag">Backend API</span>
+                                <span class="feature-tag">Base de Datos</span>
+                            </div>
+                            <a href="servicio-detalle.html?id=1" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h3>Consultoría Tecnológica</h3>
+                                <span class="service-price">$800</span>
+                            </div>
+                            <p class="service-description">Asesoría especializada en arquitectura de software y modelado conceptual</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Análisis de Requisitos</span>
+                                <span class="feature-tag">Diseño de Arquitectura</span>
+                                <span class="feature-tag">Documentación</span>
+                            </div>
+                            <a href="servicio-detalle.html?id=2" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h3>Integración de Sistemas</h3>
+                                <span class="service-price">$1,500</span>
+                            </div>
+                            <p class="service-description">Integración de sistemas existentes con nuevas tecnologías web semánticas</p>
+                            <div class="service-features">
+                                <span class="feature-tag">APIs REST</span>
+                                <span class="feature-tag">MongoDB</span>
+                                <span class="feature-tag">Web Semántica</span>
+                            </div>
+                            <a href="servicio-detalle.html?id=3" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h3>Diseño UX/UI</h3>
+                                <span class="service-price">$600</span>
+                            </div>
+                            <p class="service-description">Diseño de interfaces aplicando teoría del color y principios de usabilidad</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Teoría del Color</span>
+                                <span class="feature-tag">Prototipado</span>
+                                <span class="feature-tag">Responsive Design</span>
+                            </div>
+                            <a href="servicio-detalle.html?id=4" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="agent-info">
+            <div class="container">
+                <div class="agent-explanation">
+                    <h2>🤖 AgenteServicio en Acción</h2>
+                    <p>Nuestro sistema utiliza el concepto de <strong>AgenteServicio</strong> que se encarga de:</p>
+                    <ul>
+                        <li>Gestionar el catálogo completo de servicios</li>
+                        <li>Procesar solicitudes de información</li>
+                        <li>Mantener la consistencia de datos</li>
+                        <li>Coordinar con la base de datos MongoDB</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ServiTech. Proyecto Web Semántica - Arquitectura Cliente-Servidor</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Cargar servicios al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServices();
+        });
+    </script>
+</body>
+</html>
