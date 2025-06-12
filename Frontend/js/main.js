@@ -216,7 +216,7 @@ async function handleContactSubmit(e) {
     
     try {
         // Enviar al AgenteContacto
-        const response = await fetch(`${API_BASE_URL}/contacto`, {
+        const response = await fetch(`${API_BASE_URL}/contactos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
