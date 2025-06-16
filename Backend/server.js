@@ -68,14 +68,14 @@ const limiteContactos = rateLimit({
 app.use(limiteGeneral);
 
 // Parsing de JSON y URL encoded
-app.use(express.json({ 
+app.use(express.json({
   limit: '10mb',
   strict: true
 }));
 
-app.use(express.urlencoded({ 
-  extended: true, 
-  limit: '10mb' 
+app.use(express.urlencoded({
+  extended: true,
+  limit: '10mb'
 }));
 
 // Trust proxy para obtener IP real (importante para rate limiting)
@@ -107,7 +107,7 @@ app.use((req, res, next) => {
 // Ruta de salud del servidor
 app.get('/health', (req, res) => {
   const estadoConexion = agenteConexion.obtenerEstado();
-  
+
   res.json({
     exito: true,
     mensaje: 'Servidor funcionando correctamente',
@@ -164,7 +164,7 @@ app.use('/api/contactos', contactosRoutes);
 // Servir frontend desde carpeta public en producción
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('public'));
-  
+
   // Ruta catch-all para SPA
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -190,13 +190,13 @@ app.use('*', (req, res) => {
 // Middleware global de manejo de errores
 app.use((error, req, res, next) => {
   console.error('💥 Error no manejado:', error);
-  
+
   const respuestaError = {
     exito: false,
     mensaje: 'Error interno del servidor',
     timestamp: new Date().toISOString()
   };
-  
+
   // En desarrollo, incluir stack trace
   if (process.env.NODE_ENV === 'development') {
     respuestaError.debug = {
@@ -204,7 +204,7 @@ app.use((error, req, res, next) => {
       stack: error.stack
     };
   }
-  
+
   res.status(500).json(respuestaError);
 });
 
@@ -215,16 +215,16 @@ app.use((error, req, res, next) => {
 async function iniciarServidor() {
   try {
     console.log('🚀 Iniciando servidor Web Semántica...');
-    
+
     // Conectar a MongoDB Atlas
     console.log('📊 Conectando a MongoDB Atlas...');
     await agenteConexion.conectar();
-    
+
     // Inicializar datos de ejemplo si es necesario
     if (process.env.NODE_ENV === 'development') {
       await inicializarDatosEjemplo();
     }
-    
+
     // Iniciar servidor HTTP
     const servidor = app.listen(PORT, () => {
       console.log(`✅ Servidor iniciado exitosamente`);
@@ -234,7 +234,7 @@ async function iniciarServidor() {
       console.log(`🤖 Agentes activos: AgenteServicio, AgenteContacto, AgenteConexion`);
       console.log(`📋 Modo: ${process.env.NODE_ENV || 'development'}`);
     });
-    
+
     // Manejo graceful de cierre del servidor
     process.on('SIGTERM', () => {
       console.log('🛑 Recibida señal SIGTERM, cerrando servidor...');
@@ -244,7 +244,7 @@ async function iniciarServidor() {
         process.exit(0);
       });
     });
-    
+
     process.on('SIGINT', () => {
       console.log('🛑 Recebida señal SIGINT, cerrando servidor...');
       servidor.close(async () => {
@@ -253,7 +253,7 @@ async function iniciarServidor() {
         process.exit(0);
       });
     });
-    
+
   } catch (error) {
     console.error('💥 Error al iniciar servidor:', error);
     process.exit(1);
@@ -267,38 +267,65 @@ async function iniciarServidor() {
 async function inicializarDatosEjemplo() {
   try {
     const Servicio = require('./models/servicio');
-    
+
     // Verificar si ya existen servicios
     const serviciosExistentes = await Servicio.countDocuments();
-    
+
     if (serviciosExistentes === 0) {
       console.log('📝 Creando servicios de ejemplo...');
-      
+
       const serviciosEjemplo = [
         {
-          titulo: 'Desarrollo Web Personalizado',
-          descripcion: 'Creamos sitios web únicos y funcionales adaptados a las necesidades específicas de tu negocio. Utilizamos las últimas tecnologías y mejores prácticas de desarrollo para garantizar un resultado profesional y efectivo.',
-          descripcionCorta: 'Sitios web únicos adaptados a tu negocio con las últimas tecnologías.',
-          costo: 1500000,
+          titulo: 'Desarrollo Web Completo',
+          descripcion: 'Aplicación web full-stack con arquitectura Cliente-Servidor moderna y escalable',
+          costo: 1200,
+          tecnologias: ['HTML5', 'CSS3', 'JavaScript', 'Node.js', 'MongoDB', 'Express'],
           categoria: 'desarrollo',
           duracionEstimada: '4-6 semanas',
-          keywords: ['desarrollo', 'web', 'personalizado', 'responsive', 'moderno']
+          tipoServicio: 'proyecto',
+          prioridad: 1,
+          caracteristicas: [
+            { nombre: 'Diseño Responsivo', descripcion: 'Adaptable a todos los dispositivos' },
+            { nombre: 'Base de Datos', descripcion: 'MongoDB con esquemas optimizados' },
+            { nombre: 'API REST', descripcion: 'Endpoints seguros y documentados' }
+          ]
         },
-          {
-            titulo: 'Consultoría en Transformación Digital',
-            descripcion: 'Te ayudamos a digitalizar tu empresa mediante estrategias personalizadas. Analizamos tus procesos actuales y diseñamos un plan de transformación digital que optimice tu operación y mejore tu competitividad.',
-            descripcionCorta: 'Estrategias personalizadas para digitalizar tu empresa.',
-            costo: 800000,
-            categoria: 'consultoría',
-            duracionEstimada: '2-3 semanas',
-            keywords: ['consultoría', 'digital', 'transformación', 'estrategia', 'optimización']
-          }
+        {
+          titulo: 'Consultoría Tecnológica',
+          descripcion: 'Asesoría especializada en arquitectura de software y web semántica',
+          costo: 800,
+          tecnologias: ['Arquitectura', 'Consultoría', 'Documentación', 'UML'],
+          categoria: 'consultoria',
+          duracionEstimada: '2-3 semanas',
+          tipoServicio: 'consultoria',
+          prioridad: 2
+        },
+        {
+          titulo: 'Integración de Sistemas',
+          descripcion: 'Conexión seamless entre sistemas legacy y tecnologías modernas',
+          costo: 1500,
+          tecnologias: ['APIs', 'Integración', 'Microservicios', 'Docker'],
+          categoria: 'integracion',
+          duracionEstimada: '3-5 semanas',
+          tipoServicio: 'proyecto',
+          prioridad: 1
+        },
+        {
+          titulo: 'Diseño UX/UI',
+          descripcion: 'Diseño de interfaces centrado en el usuario con teoría del color aplicada',
+          costo: 600,
+          tecnologias: ['Figma', 'Prototipado', 'Teoría del Color', 'Adobe XD'],
+          categoria: 'diseno',
+          duracionEstimada: '2-3 semanas',
+          tipoServicio: 'proyecto',
+          prioridad: 3
+        }
       ];
-      
+
       await Servicio.insertMany(serviciosEjemplo);
       console.log('✅ Servicios de ejemplo creados');
     }
-    
+
   } catch (error) {
     console.error('❌ Error al crear datos de ejemplo:', error);
   }

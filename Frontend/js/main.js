@@ -62,13 +62,13 @@ async function loadServices() {
         }
 
         const servicios = await response.json();
-        
+        console.log(servicios)
         // Ocultar loading
         if (loadingEl) loadingEl.style.display = 'none';
         
         // Mostrar servicios desde API
         if (servicesGridEl) {
-            displayServices(servicios, servicesGridEl);
+            displayServices(servicios.datos.servicios, servicesGridEl);
             servicesGridEl.style.display = 'grid';
         }
 
@@ -138,9 +138,9 @@ async function loadServiceDetail() {
         }
 
         const servicio = await response.json();
-        
+        console.log(servicio)
         // Actualizar contenido con datos de la API
-        updateServiceDetail(servicio);
+        updateServiceDetail(servicio.datos.servicio);
         
         // Ocultar loading
         if (loadingEl) loadingEl.style.display = 'none';

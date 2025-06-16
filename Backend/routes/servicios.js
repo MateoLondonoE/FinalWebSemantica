@@ -2,45 +2,45 @@ const express = require('express');
 const router = express.Router();
 const Servicio = require('../models/servicio');
 
-/**
- * Controlador que actúa como AgenteServicio
- * Implementa la lógica de negocio para la gestión de servicios
- * Siguiendo principios de web semántica y ontología conceptual
- */
-
 // ✅ GET /api/servicios - Obtener todos los servicios activos
 router.get('/', async (req, res) => {
   try {
     console.log('🤖 AgenteServicio: Procesando solicitud de lista de servicios');
     
     const { categoria, buscar, limite = 50, pagina = 1 } = req.query;
-    let query = { activo: true };
+    let query = { disponible: true }; // <-- Campo correcto
     
     // Filtro por categoría si se especifica
     if (categoria) {
       query.categoria = categoria.toLowerCase();
     }
     
-    // Búsqueda por texto si se especifica
+    const skip = (parseInt(pagina) - 1) * parseInt(limite);
     let servicios;
+
+    // Búsqueda por texto si se especifica
     if (buscar) {
-      servicios = await Servicio.buscarPorTexto(buscar);
+      servicios = await Servicio.find({
+        ...query,
+        $text: { $search: buscar }
+      })
+      .sort({ score: { $meta: "textScore" } })
+      .limit(parseInt(limite))
+      .skip(skip);
     } else {
-      const skip = (parseInt(pagina) - 1) * parseInt(limite);
       servicios = await Servicio.find(query)
         .sort({ fechaCreacion: -1 })
         .limit(parseInt(limite))
         .skip(skip);
     }
     
-    // Obtener total para paginación
     const total = await Servicio.countDocuments(query);
-    
+
     const respuesta = {
       exito: true,
       mensaje: 'Servicios obtenidos exitosamente',
       datos: {
-        servicios: servicios.map(servicio => servicio.obtenerResumen()),
+        servicios: servicios.map(servicio => servicio.toObject()), // usar .toObject()
         paginacion: {
           paginaActual: parseInt(pagina),
           limite: parseInt(limite),
@@ -51,10 +51,10 @@ router.get('/', async (req, res) => {
       agente: 'AgenteServicio',
       timestamp: new Date().toISOString()
     };
-    
+
     console.log(`✅ AgenteServicio: ${servicios.length} servicios encontrados`);
     res.json(respuesta);
-    
+
   } catch (error) {
     console.error('❌ AgenteServicio: Error al obtener servicios:', error);
     res.status(500).json({
@@ -82,8 +82,8 @@ router.get('/:id', async (req, res) => {
         timestamp: new Date().toISOString()
       });
     }
-    
-    if (!servicio.esActivo()) {
+
+    if (!servicio.disponible) {
       return res.status(404).json({
         exito: false,
         mensaje: 'Servicio no disponible',
@@ -91,7 +91,7 @@ router.get('/:id', async (req, res) => {
         timestamp: new Date().toISOString()
       });
     }
-    
+
     const respuesta = {
       exito: true,
       mensaje: 'Servicio encontrado exitosamente',
@@ -101,14 +101,13 @@ router.get('/:id', async (req, res) => {
       agente: 'AgenteServicio',
       timestamp: new Date().toISOString()
     };
-    
+
     console.log(`✅ AgenteServicio: Servicio encontrado - ${servicio.titulo}`);
     res.json(respuesta);
-    
+
   } catch (error) {
     console.error('❌ AgenteServicio: Error al obtener servicio:', error);
     
-    // Error de formato de ID de MongoDB
     if (error.name === 'CastError') {
       return res.status(400).json({
         exito: false,
@@ -117,7 +116,7 @@ router.get('/:id', async (req, res) => {
         timestamp: new Date().toISOString()
       });
     }
-    
+
     res.status(500).json({
       exito: false,
       mensaje: 'Error interno del servidor al obtener servicio',
@@ -128,14 +127,14 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ✅ POST /api/servicios - Crear nuevo servicio (para administración)
+// ✅ POST /api/servicios - Crear nuevo servicio
 router.post('/', async (req, res) => {
   try {
     console.log('🤖 AgenteServicio: Procesando creación de nuevo servicio');
     
     const nuevoServicio = new Servicio(req.body);
     await nuevoServicio.save();
-    
+
     const respuesta = {
       exito: true,
       mensaje: 'Servicio creado exitosamente',
@@ -145,20 +144,19 @@ router.post('/', async (req, res) => {
       agente: 'AgenteServicio',
       timestamp: new Date().toISOString()
     };
-    
+
     console.log(`✅ AgenteServicio: Servicio creado - ${nuevoServicio.titulo}`);
     res.status(201).json(respuesta);
-    
+
   } catch (error) {
     console.error('❌ AgenteServicio: Error al crear servicio:', error);
-    
-    // Error de validación
+
     if (error.name === 'ValidationError') {
       const errores = Object.values(error.errors).map(err => ({
         campo: err.path,
         mensaje: err.message
       }));
-      
+
       return res.status(400).json({
         exito: false,
         mensaje: 'Error de validación en los datos del servicio',
@@ -167,8 +165,7 @@ router.post('/', async (req, res) => {
         timestamp: new Date().toISOString()
       });
     }
-    
-    // Error de duplicado (slug único)
+
     if (error.code === 11000) {
       return res.status(409).json({
         exito: false,
@@ -177,7 +174,7 @@ router.post('/', async (req, res) => {
         timestamp: new Date().toISOString()
       });
     }
-    
+
     res.status(500).json({
       exito: false,
       mensaje: 'Error interno del servidor al crear servicio',
