@@ -50,15 +50,13 @@ npm install
 
 ## 🚀 Inicio del Proyecto
 
-Para iniciar el servidor en entorno de desarrollo:
+#Para iniciar el servidor en entorno de desarrollo:
 
-```bash
 npm run dev
 
 
-```o en producción:
+#o en producción:
 
-```bash
 npm start
 
 ## ✅ Notas Finales
