@@ -1,4 +1,5 @@
----
+# Proyecto Backend con Node.js y MongoDB
+
 Este proyecto utiliza una base de datos MongoDB alojada en la nube (MongoDB Atlas) y un entorno de desarrollo local con Node.js.
 
 ## 📦 Requisitos Previos
@@ -13,7 +14,7 @@ Crea un archivo llamado `.env` en la raíz del proyecto y añade la siguiente co
 
 env
 # Configuración de Base de Datos MongoDB
-MONGODB_URI=mongodb+srv://(tu usario):(tucontraseña)@cluster0.2apqsei.mongodb.net/
+MONGODB_URI=mongodb+srv://(tu usuario):(tucontraseña)@cluster0.2apqsei.mongodb.net/
 
 # Configuración del Servidor
 PORT=3000
@@ -21,7 +22,7 @@ NODE_ENV=development
 
 # URL del Frontend (para CORS en producción)
 FRONTEND_URL=http://localhost:5500
-`
+
 
 > 🔒 **Nota**: No compartas este archivo ni lo subas a repositorios públicos.
 
@@ -43,11 +44,9 @@ FRONTEND_URL=http://localhost:5500
 
 Dentro del directorio raíz del proyecto, ejecuta:
 
-bash
+```bash
 npm install
 
-
-Esto instalará todas las dependencias definidas en el archivo `package.json`.
 
 ## 🚀 Inicio del Proyecto
 
@@ -61,9 +60,6 @@ o en producción:
 
 bash
 npm start
-
-
----
 
 ## ✅ Notas Finales
 
