@@ -52,13 +52,13 @@ npm install
 
 Para iniciar el servidor en entorno de desarrollo:
 
-bash
+```bash
 npm run dev
 
 
-o en producción:
+```o en producción:
 
-bash
+```bash
 npm start
 
 ## ✅ Notas Finales
