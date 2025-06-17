@@ -14,7 +14,7 @@ Crea un archivo llamado `.env` en la raíz del proyecto y añade la siguiente co
 
 env
 # Configuración de Base de Datos MongoDB
-MONGODB_URI=mongodb+srv://(tu usuario):(tucontraseña)@cluster0.2apqsei.mongodb.net/
+MONGODB_URI=mongodb+srv://(tu usuario):(tucontraseña)@(tu CLUSTER)/
 
 # Configuración del Servidor
 PORT=3000
