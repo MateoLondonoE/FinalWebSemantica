@@ -58,7 +58,7 @@ npm run dev
 #o en producción:
 
 npm start
-
+```
 ## ✅ Notas Finales
 
 * Asegúrate de tener tu archivo `.env` configurado antes de iniciar el servidor.
