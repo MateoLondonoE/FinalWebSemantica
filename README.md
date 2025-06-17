@@ -30,9 +30,9 @@ FRONTEND_URL=http://localhost:5500
 
 1. Regístrate en [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 2. Crea un nuevo **Cluster gratuito (M0)**.
-3. Crea un usuario con nombre de usuario y contraseña (ej. `user` y `1234`).
+3. Crea un usuario con nombre de usuario y contraseña (ej. `tu usuario` y `tucontraseña`).
 4. Agrega tu IP a la lista de acceso (puedes permitir acceso desde cualquier IP temporalmente con `0.0.0.0/0`).
-5. Copia la cadena de conexión, reemplaza `user` y `1234` por tus datos y pégala en el `.env`.
+5. Copia la cadena de conexión, reemplaza `tu usuario` y `tucontraseña` por tus datos y pégala en el `.env`.
 
 ## 🔗 Conexión con MongoDB Compass
 
